@@ -5,5 +5,5 @@ const CONFIG_LANDING = {
     valorBoleto: "$20.000 COP",
     pais: "Colombia 🇨🇴",
     urlAppRifa: "https://rifa-mkddigital.onrender.com",
-    whatsappContacto: "https://wa.me/573150000000?text=Hola,%20quiero%20apartar%20mis%20números%20para%20la%20rifa"
+    whatsappContacto: "https://wa.me/573157876997?text=Hola,%20quiero%20apartar%20mis%20números%20para%20la%20rifa"
 };
