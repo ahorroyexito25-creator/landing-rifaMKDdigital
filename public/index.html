@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteo Oficial | Rifa MKDdigital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background: #0b0f19; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: space-between; overflow-x: hidden; }
+        .hero { width: 100%; max-width: 600px; padding: 30px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .badge { background: rgba(245, 158, 11, 0.15); color: #f59e0b; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 20px; border: 1px solid rgba(245, 158, 11, 0.3); }
+        h1 { font-size: 32px; font-weight: 800; color: #ffffff; margin-bottom: 10px; text-transform: uppercase; line-height: 1.2; }
+        h1 span { color: #f59e0b; }
+        .subtitle { font-size: 15px; color: #94a3b8; margin-bottom: 30px; }
+        .card-info { background: #1e293b; width: 100%; border-radius: 16px; padding: 25px; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #334155; text-align: left; }
+        .info-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 15px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .info-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .info-label { color: #94a3b8; font-weight: 400; }
+        .info-value { color: #f8fafc; font-weight: 600; text-align: right; }
+        .btn-comprar { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #ffffff; width: 100%; padding: 18px; border-radius: 12px; font-size: 18px; font-weight: 700; text-decoration: none; display: block; text-align: center; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4); margin-bottom: 15px; text-transform: uppercase; }
+        .btn-whatsapp { background: #25d366; color: #ffffff; width: 100%; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        footer { padding: 20px; font-size: 13px; color: #64748b; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="badge" id="lblPais">✨ SORTEO OFICIAL AUTORIZADO</div>
+        <h1>Gana Increíbles Premios con <span id="lblLoteria">RIFA</span></h1>
+        <p class="subtitle">¡Participa ahora de forma rápida, segura y transparente!</p>
+        <div class="card-info">
+            <div class="info-item"><span class="info-label">🏆 Premio Mayor:</span><span class="info-value" id="lblPremio">-</span></div>
+            <div class="info-item"><span class="info-label">📅 Fecha Sorteo:</span><span class="info-value" id="lblFecha">-</span></div>
+            <div class="info-item"><span class="info-label">🎟️ Valor Boleto:</span><span class="info-value" id="lblPrecio">-</span></div>
+        </div>
+        <a href="#" id="btnIrApp" class="btn-comprar">🚀 Elegir mis Números Ahora</a>
+        <a href="#" id="btnWhatsapp" class="btn-whatsapp" target="_blank">💬 Contactar por WhatsApp</a>
+    </div>
+    <footer><p>© 2026 Rifa MKDdigital. Todos los derechos reservados.</p></footer>
+    <script src="config.js"></script>
+    <script>
+        document.getElementById('lblPais').innerText = "✨ " + CONFIG_LANDING.pais;
+        document.getElementById('lblLoteria').innerText = CONFIG_LANDING.loteriaNombre;
+        document.getElementById('lblPremio').innerText = CONFIG_LANDING.premioMayor;
+        document.getElementById('lblFecha').innerText = CONFIG_LANDING.fechaSorteo;
+        document.getElementById('lblPrecio').innerText = CONFIG_LANDING.valorBoleto;
+        document.getElementById('btnIrApp').href = CONFIG_LANDING.urlAppRifa;
+        document.getElementById('btnWhatsapp').href = CONFIG_LANDING.whatsappContacto;
+    </script>
+</body>
+</html>
