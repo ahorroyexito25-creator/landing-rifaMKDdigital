@@ -39,13 +39,46 @@
     <footer><p>© 2026 Rifa MKDdigital. Todos los derechos reservados.</p></footer>
     <script src="config.js"></script>
     <script>
-        document.getElementById('lblPais').innerText = "✨ " + CONFIG_LANDING.pais;
-        document.getElementById('lblLoteria').innerText = CONFIG_LANDING.loteriaNombre;
-        document.getElementById('lblPremio').innerText = CONFIG_LANDING.premioMayor;
-        document.getElementById('lblFecha').innerText = CONFIG_LANDING.fechaSorteo;
-        document.getElementById('lblPrecio').innerText = CONFIG_LANDING.valorBoleto;
-        document.getElementById('btnIrApp').href = CONFIG_LANDING.urlAppRifa;
-        document.getElementById('btnWhatsapp').href = CONFIG_LANDING.whatsappContacto;
+        // Primero se muestran los valores fijos de config.js (respaldo instantáneo),
+        // y luego se intentan reemplazar con los datos EN VIVO del panel de administración.
+        function pintarDatos(datos) {
+            document.getElementById('lblPais').innerText = "✨ " + datos.pais;
+            document.getElementById('lblLoteria').innerText = datos.loteriaNombre;
+            document.getElementById('lblPremio').innerText = datos.premioMayor;
+            document.getElementById('lblFecha').innerText = datos.fechaSorteo;
+            document.getElementById('lblPrecio').innerText = datos.valorBoleto;
+            document.getElementById('btnIrApp').href = CONFIG_LANDING.urlAppRifa;
+            document.getElementById('btnWhatsapp').href = CONFIG_LANDING.whatsappContacto;
+        }
+
+        pintarDatos(CONFIG_LANDING);
+
+        function formatearFechaLanding(fechaIso) {
+            try {
+                const fecha = new Date(fechaIso);
+                if (isNaN(fecha.getTime())) return fechaIso;
+                const texto = fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                const hora = fecha.toLocaleTimeString('es-ES', { hour: 'numeric', minute: '2-digit', hour12: true });
+                return `${texto.charAt(0).toUpperCase()}${texto.slice(1)}, ${hora}`;
+            } catch (e) {
+                return fechaIso;
+            }
+        }
+
+        fetch(`${CONFIG_LANDING.urlAppRifa}/api/config`)
+            .then(res => res.ok ? res.json() : Promise.reject())
+            .then(config => {
+                pintarDatos({
+                    pais: CONFIG_LANDING.pais,
+                    loteriaNombre: config.loteria_nombre || CONFIG_LANDING.loteriaNombre,
+                    premioMayor: config.premio_mayor || CONFIG_LANDING.premioMayor,
+                    fechaSorteo: config.fecha_sorteo ? formatearFechaLanding(config.fecha_sorteo) : CONFIG_LANDING.fechaSorteo,
+                    valorBoleto: config.precio_boleto ? `${config.simbolo_moneda || '$'}${Number(config.precio_boleto).toLocaleString('es-CO')} ${config.moneda || ''}`.trim() : CONFIG_LANDING.valorBoleto
+                });
+            })
+            .catch(() => {
+                // Si falla (sin internet, o el backend está dormido), se quedan los valores fijos de config.js.
+            });
     </script>
 </body>
 </html>
